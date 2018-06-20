@@ -1,0 +1,27 @@
+{
+  "name": "voicetocode",
+  "version": "0.0.0-beta",
+  "description": "Application to help developers code by using their voice",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [
+    "voice",
+    "accessibility",
+    "code",
+    "control",
+    "hands-free"
+  ],
+  "author": "Alexis Charles",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^2.0.2"
+  },
+  "dependencies": {
+    "bootstrap": "^4.1.1",
+    "jquery": "^3.3.1",
+    "popper": "^1.0.1",
+    "popper.js": "^1.14.3"
+  }
+}
