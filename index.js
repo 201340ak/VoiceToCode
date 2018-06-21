@@ -7,7 +7,7 @@ var path = require('path')
   
   function createWindow () {
     // Create the browser window.
-    win = new BrowserWindow({width: 800, height: 600, icon: path.join(__dirname, 'assets/icons/soundWave_2.png')})
+    win = new BrowserWindow({icon: path.join(__dirname, 'assets/icons/soundWave_2.png')})
   
     // and load the index.html of the app.
     win.loadFile('index.html')

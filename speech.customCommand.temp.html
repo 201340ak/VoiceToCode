@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Voice To Code</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="javascript" href="node_modules/jquery/dist/jquery.min.js">
+    <script src="node_modules/artyom.js/build/artyom.window.min.js"></script>
+</head>
+
+<body>
+    <div class="container text-center">
+        <p>This is a test to be able to build up a command to execute. The testing scenario is using notepad, creating a new file, and pasting content from Voice to Code</p>
+            <button type="button" class="btn btn-primary" onclick="RunCommand()">Open Notepad, Create new File, paste content</button>
+        <div class="form-group">
+            <label for="exampleFormControlFile1">Please Select Notepad executable</label>
+            <input type="file" class="form-control-file" id="exampleFormControlFile1">
+        </div>
+        <div class="form-group">
+            <label for="hotKeyCommandForNewFile">Provide the hotkey command for creating a new file</label>
+            <input type="text" id="hotKeyCommandForNewFile" />
+        </div>
+        <div class="form-group">
+            <label for="contentToPasteInNewFile">Content you wish to be pasted in file</label>
+            <textarea rows="4" cols="50" id="contentToPasteInNewFile"></textarea>
+        </div>
+    </div>
+</body>
+<script src="Assets/javascript/speech.customCommand.js"></script>
+</html>

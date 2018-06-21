@@ -6,8 +6,9 @@ The goal of this application is provide a flexible, customizable, easy to use ap
 
 - [ElectronJS](https://electronjs.org/) for the application client.
 - [Artyom.js](https://sdkcarlos.github.io/sites/artyom.html) for the speech tools.
+- [Robotjs](http://robotjs.io/) for more control over mouse and keyboard.
 
 ## Notes
 
 This project is in early (and I mean EARLY) versions.
-Status: Currently learning electron, artyom, node, and all of the various api's to help bring this project to life. :)
+Status: Learning more about robot and artyom, trying to build up more complex commands.
