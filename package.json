@@ -4,7 +4,10 @@
   "description": "Application to help developers code by using their voice",
   "main": "index.js",
   "scripts": {
-    "start": "electron ."
+    "build": "tsc",
+    "watch": "tsc -w",
+    "lint": "tslint -c tslint.json -p tsconfig.json",
+    "start": "npm run build && electron ./dist/main.js"
   },
   "keywords": [
     "voice",
@@ -16,17 +19,13 @@
   "author": "Alexis Charles",
   "license": "ISC",
   "devDependencies": {
+    "@types/es6-promise": "^3.3.0",
     "electron": "^2.0.2",
-    "electron-rebuild": "^1.7.3"
+    "tslint": "^5.10.0",
+    "typescript": "^2.8.3"
   },
   "dependencies": {
     "artyom.js": "^1.0.6",
-    "bootstrap": "^4.1.1",
-    "child_process": "^1.0.2",
-    "find": "^0.2.9",
-    "jquery": "^3.3.1",
-    "popper": "^1.0.1",
-    "popper.js": "^1.14.3",
-    "robotjs": "^0.5.1"
+    "bootstrap": "^4.1.1"
   }
 }

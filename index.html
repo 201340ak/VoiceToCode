@@ -1,53 +1,54 @@
 <!DOCTYPE html>
-  <html>
-    <head>
-      <meta charset="UTF-8">
-      <title>Voice To Code</title>
-      <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
-    </head>
-    <body>
-      <div class="container text-center">
-        <h1>Welcome!</h1>
-        <p class="lead">
-          Welcome to Voice to Code. This is a flexible, customizable, easy application to create commands to interact with 
-          various languages and IDEs. The goal is to be able to use the power of your voice to create awesome code everyday without
-          the trade-off of RSI's, Carpul Tunnel Syndrome, or Tendonitis. Or just to simply change up your coding game, because why not?
-        </p>
-        <p><em>Let's get started!</em></p>
-        <br />
-        <h4>First, a couple of questions:</h4>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Hello World!</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+  </head>
+  <body>
+    <h1>Hello World!</h1>
+    <button class="btn" id="testNotification">Test Basic Notification</button>
+    <button class="btn" id="testNotificationWithImage">Test Notification with Image</button>
+    <button class="btn btn-primary" id="sayHello">Test "Hello" Speech Command</button>
+    <!-- All of the Node.js APIs are available in this renderer process. -->
+    <p>
+      We are using Node.js <script>document.write(process.versions.node)</script>,
+      Chromium <script>document.write(process.versions.chrome)</script>,
+      and Electron <script>document.write(process.versions.electron)</script>
+  </p>
+  </body>
 
-        <div>
-        <label>What is your primary language?</label>
-        <select>
-          <option></option>
-          <option>C#</option>
-          <option>Java</option>       
-          <option>Html</option>
-        </select>
-      </div>
-      <div>
-        <label>What is your primary IDE?</label>
-        <select>
-          <option></option>
-          <option>Visual Studio</option>  
-          <option>Eclipse</option>
-          <option>Notepad++</option>
-        </select>
-      </div>
+  <script>
+    // You can also require other files to run in this process
+    require('./dist/renderer.js');
+  </script>
 
-        <footer>
-            <p><small><a href="notification.temp.html">Try out the notification demo.</a></small></p>
-            <p><small><a href="speech.temp.html">Try out the speech demo.</a></small></p>
-            <p>
-              <small>
-                We are using node <script>document.write(process.versions.node)</script>,
-                Chrome <script>document.write(process.versions.chrome)</script>,
-                and Electron <script>document.write(process.versions.electron)</script>.
-              </small>
-            </p></footer>
-      </div>
-    </body>
-    <script src="Assets/javascript/menu.js"></script>
-    <script src="node_modules/artyom.js/build/artyom.window.min.js"></script>
-  </html>
+  <script>
+    // TODO: Move to a ts file.
+  var path = require('path');
+  const notificationjs = require("./dist/Notifications/Notification.js");
+  let notificationSystem = new notificationjs.NotificationSystem();
+  let basicNotification = notificationSystem.BasicNotification;
+  let imageNotification = notificationSystem.ContentImageNotifcation;
+
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById("testNotification").addEventListener("click", () => { notificationSystem.SendNotification(basicNotification) });
+  document.getElementById("testNotificationWithImage").addEventListener("click", () => { notificationSystem.SendNotification(imageNotification) });
+});
+  </script>
+
+  
+<script>
+    // TODO: Move to a ts file.
+  var path = require('path'); 
+  const speechjs = require('./dist/Speech/Speech.js');
+  let speechSystem = new speechjs.Speech();
+  let testCommand = speechSystem.TestCommand;
+
+  speechSystem.AddCommand(testCommand);
+
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById("sayHello").addEventListener("click", () => { speechSystem.RunCommand(testCommand.indexes[0]); });
+});
+  </script>
+</html>
