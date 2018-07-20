@@ -7,9 +7,48 @@
   </head>
   <body>
     <h1>Hello World!</h1>
-    <button class="btn" id="testNotification">Test Basic Notification</button>
-    <button class="btn" id="testNotificationWithImage">Test Notification with Image</button>
-    <button class="btn btn-primary" id="sayHello">Test "Hello" Speech Command</button>
+    <div class="card">
+      <div class="card-header">
+        Test Notifications
+      </div>
+      <div class="card-body">
+        <h6 class="card-subtitle mb-2 text-muted">These buttons are to test two types of notifications</h6>
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <button class="btn btn-secondary" id="testNotification">Test Basic Notification</button>
+            <button class="btn btn-secondary" id="testNotificationWithImage">Test Notification with Image</button>
+          </div>
+      </div>
+    </div>
+    <br />
+    <div class="card">
+        <div class="card-header">
+          Test Speech Commmands
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Available Commands</h5>
+          <h6 class="card-subtitle mb-2 text-muted">These buttons simulate speaking the command.
+            All available commands will have a corresponding button.</h6>
+          <div id="availableCommandButtons" class="btn-group" role="group">
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+          <div class="card-header">
+            Add a command
+          </div>
+          <div class="card-body">
+            <h6 class="card-subtitle mb-2 text-muted">You can add a command and see the button get added to the
+              test speech commands section.
+            </h6>
+            <select class="form-control" id="typesOfCommands">
+            </select>
+            <div id="widgetDiv"></div>
+            <button class="btn btn-success" id="addNewCommand">Add Command</button>
+          </div>
+        </div>
+
+
     <!-- All of the Node.js APIs are available in this renderer process. -->
     <p>
       We are using Node.js <script>document.write(process.versions.node)</script>,
@@ -46,9 +85,72 @@ document.addEventListener('DOMContentLoaded', function() {
   let testCommand = speechSystem.TestCommand;
 
   speechSystem.AddCommand(testCommand);
+  BuildSimulationButtons();
+  LoadTypeOfCommandsIntoSelect();
+  SetSpeakCommandFields()
 
-document.addEventListener('DOMContentLoaded', function() {
-  document.getElementById("sayHello").addEventListener("click", () => { speechSystem.RunCommand(testCommand.indexes[0]); });
-});
+  document.getElementById("addNewCommand").addEventListener("click", function() {
+    
+    var commandPhraseValue = document.getElementById("commandPhrase").value;
+    var whatToSpeak = document.getElementById("spokenTextArea").value;
+    speechSystem.AddSpeakCommand(commandPhraseValue, whatToSpeak);
+    BuildSimulationButtons();
+  });
+
+  document.getElementById("typesOfCommands").addEventListener("change", function(e){
+      alert(e.target.val());
+    if(e.target.val() == "Speak")
+    {
+      SetSpeakCommandFields()
+    }
+  })
+
+function BuildSimulationButtons() {
+    var commands = speechSystem.GetAvailableCommands();
+      var commandButtonsDiv = document.getElementById("availableCommandButtons");
+      while (commandButtonsDiv.firstChild) {
+        commandButtonsDiv.removeChild(commandButtonsDiv.firstChild);
+      }
+    commands.forEach(function (command) {
+      var commandButton = document.createElement("button");
+
+      commandButton.classList.add("btn");
+      commandButton.classList.add("btn-primary");
+
+      commandButton.addEventListener("click", () => { speechSystem.RunCommand(command.indexes[0]); });
+
+      var buttonText = document.createTextNode("Simulate Saying " + command.indexes[0]);
+
+      commandButton.appendChild(buttonText);
+      commandButtonsDiv.appendChild(commandButton);
+    });
+}
+
+function LoadTypeOfCommandsIntoSelect()
+{
+  var selection = document.getElementById("typesOfCommands");
+  speechSystem.TypesOfCommands.forEach(function(commandType) {
+    var option = document.createElement("option");
+    var optionText = document.createTextNode(commandType);
+    option.appendChild(optionText);
+    selection.appendChild(option);
+  });
+}
+
+function SetSpeakCommandFields()
+{
+  //field container
+  var widgetFields = document.getElementById("widgetDiv");
+
+  // command phrases
+  var commandPhraseInput = document.createElement("input");
+  commandPhraseInput.setAttribute("id", "commandPhrase");
+  widgetFields.appendChild(commandPhraseInput);
+
+  // Speak the following
+  var spokenTextArea = document.createElement("textarea");
+  spokenTextArea.setAttribute("id", "spokenTextArea");
+  widgetFields.appendChild(spokenTextArea);
+}
   </script>
 </html>

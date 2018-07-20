@@ -3,6 +3,8 @@ const Artyom = require("artyom.js");
 var Jarvis = new Artyom.default();
 
 export class Speech {
+    TypesOfCommands: string[] = ["Speak"];
+    
     AddCommands(commands: Command[])
     {
         commands.forEach(function(command){
@@ -19,6 +21,21 @@ export class Speech {
             indexes: command.indexes,
             action: command.action
         }]);
+    }
+
+    AddSpeakCommand(commandIndex: string, speechToSayAloud: string)
+    {
+        var indexes = commandIndex.split(',');
+        var speakCommand: Command = {
+            indexes: indexes,
+            action: () => this.Say(speechToSayAloud)
+        }
+        this.AddCommand(speakCommand)
+    }
+
+    GetAvailableCommands()
+    {
+        return Jarvis.getAvailableCommands();
     }
 
     RunCommand(commandIndex: string)
